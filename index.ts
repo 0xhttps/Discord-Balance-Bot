@@ -27,7 +27,7 @@ client.on('messageCreate', async (message) => {
             message.reply({ 
             content: "Balance of " + displayWallet + ": " + walletBalanceFinal
             })
-        }
+        } 
         if(walletBalance.length === 19) {
             const walletBalanceFinal = walletBalance.charAt(0)+ "." + walletBalance.slice(1,4) + " ETH"
             message.reply({ 
