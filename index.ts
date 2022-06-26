@@ -40,6 +40,12 @@ client.on('messageCreate', async (message) => {
             content: "Balance of " + displayWallet + ": " + walletBalanceFinal
             })
         }
+        if(walletBalance.length === 17) {
+            const walletBalanceFinal = "0.0" + walletBalance.slice(0,3) + " ETH"
+            message.reply({ 
+            content: "Balance of " + displayWallet + ": " + walletBalanceFinal
+            })
+        }
         if(walletBalance.length === 21) {
             const walletBalanceFinal = walletBalance.slice(0,3)+ "." + walletBalance.slice(4,6) + " ETH"
             message.reply({ 
@@ -65,6 +71,12 @@ client.on('messageCreate', async (message) => {
         }
         if(walletBalance.length === 18) {
             const walletBalanceFinal = "0." + walletBalance.slice(0,3) + " ETH"
+            message.reply({ 
+            content: "Balance of " + displayWallet + ": " + walletBalanceFinal
+            })
+        }
+        if(walletBalance.length === 17) {
+            const walletBalanceFinal = "0.0" + walletBalance.slice(0,3) + " ETH"
             message.reply({ 
             content: "Balance of " + displayWallet + ": " + walletBalanceFinal
             })
