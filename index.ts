@@ -48,19 +48,6 @@ client.on('messageCreate', async (message) => {
         }
     }
 
-    const getBalance0x = async () => {
-        try {
-            var wallet = message.content
-            const walletBalance = await web3.eth.getBalance(wallet)
-            const value = BigNumber.from(walletBalance)
-            const displayBal = ethers.utils.formatEther(value)
-            const displayBalance = displayBal.slice(0,7)
-            return displayBalance
-        }  catch (err){
-            console.log(err)
-        }
-    }
-
     try {
         if(message.content.endsWith(".eth") || message.content.startsWith("0x") && message.content.length === 42) {
             const balance = await getBalance()
