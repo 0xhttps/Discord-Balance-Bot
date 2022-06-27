@@ -27,7 +27,7 @@ client.on('messageCreate', async (message) => {
 
     const getBalance = async () => {
         try {
-            if(message.content.endsWith(".eth")){
+            if(message.content.endsWith(".eth") && !message.content.includes(" ")){
                 var ENS = message.content
                 const wallet = await web3.eth.ens.getAddress(ENS)
                 const walletBalance = await web3.eth.getBalance(wallet)
@@ -49,7 +49,7 @@ client.on('messageCreate', async (message) => {
         }
     }
 
-        if(message.content.endsWith(".eth") || message.content.startsWith("0x") && message.content.length === 42) {
+        if(message.content.endsWith(".eth") && !message.content.includes(" ")|| message.content.startsWith("0x") && message.content.length === 42) {
             try {
                 const balance = await getBalance()
                 if(balance == null) {
