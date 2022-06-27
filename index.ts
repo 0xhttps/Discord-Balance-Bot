@@ -56,16 +56,24 @@ client.on('messageCreate', async (message) => {
 
         if(message.content.endsWith(".eth") && !message.content.includes(" ")|| message.content.startsWith("0x") && message.content.length === 42) {
             try {
+                
                 const balance = await getBalance()
                 if(balance == null) {
                     message.reply({
                     content: "Error. Invalid ENS"
                     })
                 } else {
+                    if(message.content.startsWith("0x") && message.content.length === 42) {
+                        const displayWallet = await returnAddress() 
+                        message.reply({
+                        content: "Wallet balance of " + displayWallet + ": " + balance + " ETH"
+                        })
+                } else {
                     message.reply({
                     content: "Wallet balance of " + message.content + ": " + balance + " ETH"
                     })
                 }
+            }
             } catch (err){
                 //console.log(err)
             }
