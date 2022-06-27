@@ -50,7 +50,7 @@ client.on('messageCreate', async (message) => {
                 return displayBalance
             }
         }  catch (err){
-            console.log(err)
+            //console.log(err)
         }
     }
 
@@ -67,7 +67,7 @@ client.on('messageCreate', async (message) => {
                     })
                 }
             } catch (err){
-                console.log(err)
+                //console.log(err)
             }
         } 
     
