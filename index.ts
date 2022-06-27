@@ -7,7 +7,7 @@ dotenv.config()
 //change link to your own API link
 var web3 = new Web3(new Web3.providers.HttpProvider('https://eth-mainnet.alchemyapi.io/v2/mrDDPpzaAZsjGsCA1kUxBzBD9zZ5j4Q6'));
 
-//change these keyword to change what the bot looks for
+//change these keywords to change what the bot looks for
 const keyWordENS = ".eth"
 const keyWordAddress = "0x"
 
