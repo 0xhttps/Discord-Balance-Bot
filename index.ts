@@ -45,20 +45,27 @@ client.on('messageCreate', async (message) => {
             }
         }  catch (err){
             console.log(err)
+            message.reply({
+                content: "Error getting balance"
+            })
         }
     }
 
-    try {
+
+
         if(message.content.endsWith(".eth") || message.content.startsWith("0x") && message.content.length === 42) {
-            const balance = await getBalance()
-            message.reply({
+            try {
+                const balance = await getBalance()
+                if(balance !== "undefined") {
+                 message.reply({
                 content: "Wallet balance of " + message.content + ": " + balance + " ETH"
+                
             })
+        }
+            } catch (err){
+                console.log(err)
+            }
         } 
-    } catch (err) {
-        message.reply({
-            content: "Please enter a valid address"
-        })
-    }
+    
 })
 client.login(process.env.TOKEN)
