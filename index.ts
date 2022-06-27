@@ -40,7 +40,6 @@ client.on('messageCreate', async (message) => {
                 const displayBal = ethers.utils.formatEther(value)
                 const displayBalance = displayBal.slice(0,7)
                 return displayBalance
-               
             } else if(message.content.startsWith(keyWordAddress) && message.content.length === 42) {
                 var wallet = message.content
                 const walletBalance = await web3.eth.getBalance(wallet)
