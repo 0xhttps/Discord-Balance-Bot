@@ -57,11 +57,10 @@ client.on('messageCreate', async (message) => {
             try {
                 const balance = await getBalance()
                 if(balance !== "undefined") {
-                 message.reply({
-                content: "Wallet balance of " + message.content + ": " + balance + " ETH"
-                
-            })
-        }
+                    message.reply({
+                    content: "Wallet balance of " + message.content + ": " + balance + " ETH"
+                    })
+                }
             } catch (err){
                 console.log(err)
             }
