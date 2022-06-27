@@ -72,9 +72,9 @@ client.on('messageCreate', async (message) => {
                         })
                     }
                 }
-        } catch (err){
-            //console.log(err)
-        }
-        } 
+            } catch (err){
+                //console.log(err)
+            }
+        }    
 })
 client.login(process.env.TOKEN)
