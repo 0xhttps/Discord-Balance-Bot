@@ -1,6 +1,7 @@
-import DiscordJS, { Channel, Intents, AwaitMessageCollectorOptionsParams, Message } from 'discord.js'
+import DiscordJS, { Intents } from 'discord.js'
 import dotenv from 'dotenv'
 import Web3 from 'web3'
+import { BigNumber, ethers } from "ethers";
 dotenv.config()
 
 var web3 = new Web3(new Web3.providers.HttpProvider('https://eth-mainnet.alchemyapi.io/v2/mrDDPpzaAZsjGsCA1kUxBzBD9zZ5j4Q6'));
@@ -29,26 +30,10 @@ client.on('messageCreate', async (message) => {
             var ENS = message.content
             const wallet = await web3.eth.ens.getAddress(ENS)
             const walletBalance = await web3.eth.getBalance(wallet)
-            if(walletBalance.length === 20) {
-                const walletBalanceFinal = walletBalance.slice(0,2)+ "." + walletBalance.slice(3,5) + " ETH"
-                return walletBalanceFinal
-            } 
-            if(walletBalance.length === 19) {
-                const walletBalanceFinal = walletBalance.charAt(0)+ "." + walletBalance.slice(1,4) + " ETH"
-                return walletBalanceFinal
-            }
-            if(walletBalance.length === 18) {
-                const walletBalanceFinal = "0." + walletBalance.slice(0,3) + " ETH"
-                return walletBalanceFinal
-            }
-            if(walletBalance.length === 17) {
-                const walletBalanceFinal = "0.0" + walletBalance.slice(0,3) + " ETH"
-                return walletBalanceFinal
-            }
-            if(walletBalance.length === 21) {
-                const walletBalanceFinal = walletBalance.slice(0,3)+ "." + walletBalance.slice(4,6) + " ETH"
-                return walletBalanceFinal
-            }
+            const value = BigNumber.from(walletBalance)
+            const displayBal = ethers.utils.formatEther(value)
+            const displayBalance = displayBal.slice(0,6)
+            return displayBalance
         }  catch (err){
             console.log(err)
         }
@@ -58,26 +43,10 @@ client.on('messageCreate', async (message) => {
         try {
             var wallet = message.content
             const walletBalance = await web3.eth.getBalance(wallet)
-            if(walletBalance.length === 20) {
-                const walletBalanceFinal = walletBalance.slice(0,2)+ "." + walletBalance.slice(3,5) + " ETH"
-                return walletBalanceFinal
-            } 
-            if(walletBalance.length === 19) {
-                const walletBalanceFinal = walletBalance.charAt(0)+ "." + walletBalance.slice(1,4) + " ETH"
-                return walletBalanceFinal
-            }
-            if(walletBalance.length === 18) {
-                const walletBalanceFinal = "0." + walletBalance.slice(0,3) + " ETH"
-                return walletBalanceFinal
-            }
-            if(walletBalance.length === 17) {
-                const walletBalanceFinal = "0.0" + walletBalance.slice(0,3) + " ETH"
-                return walletBalanceFinal
-            }
-            if(walletBalance.length === 21) {
-                const walletBalanceFinal = walletBalance.slice(0,3)+ "." + walletBalance.slice(4,6) + " ETH"
-                return walletBalanceFinal
-            }
+            const value = BigNumber.from(walletBalance)
+            const displayBal = ethers.utils.formatEther(value)
+            const displayBalance = displayBal.slice(0,6)
+            return displayBalance
         }  catch (err){
             console.log(err)
         }
@@ -87,13 +56,13 @@ client.on('messageCreate', async (message) => {
         if(message.content.endsWith(".eth")) {
             const balance = await getBalanceENS()
             message.reply({
-                content: "Wallet balance of " + message.content + ": " + balance
+                content: "Wallet balance of " + message.content + ": " + balance + " ETH"
             })
         } else if(message.content.startsWith("0x") && message.content.length === 42) {
             const balance = await getBalance0x()
             const displayWallet = await returnAddress()
             message.reply({
-                content: "Wallet balance of " + displayWallet + ": " + balance
+                content: "Wallet balance of " + displayWallet + ": " + balance + " ETH"
             })
         }
     } catch (err) {
