@@ -35,6 +35,7 @@ client.on('messageCreate', async (message) => {
                 const displayBal = ethers.utils.formatEther(value)
                 const displayBalance = displayBal.slice(0,7)
                 return displayBalance
+               
             } else if(message.content.startsWith("0x") && message.content.length === 42) {
                 var wallet = message.content
                 const walletBalance = await web3.eth.getBalance(wallet)
@@ -45,16 +46,17 @@ client.on('messageCreate', async (message) => {
             }
         }  catch (err){
             console.log(err)
-            message.reply({
-                content: "Error getting balance"
-            })
         }
     }
 
         if(message.content.endsWith(".eth") || message.content.startsWith("0x") && message.content.length === 42) {
             try {
                 const balance = await getBalance()
-                if(balance !== "undefined") {
+                if(balance == null) {
+                    message.reply({
+                    content: "Error. Invalid ENS"
+                    })
+                } else {
                     message.reply({
                     content: "Wallet balance of " + message.content + ": " + balance + " ETH"
                     })
