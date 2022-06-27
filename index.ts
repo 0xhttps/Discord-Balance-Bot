@@ -51,8 +51,6 @@ client.on('messageCreate', async (message) => {
         }
     }
 
-
-
         if(message.content.endsWith(".eth") || message.content.startsWith("0x") && message.content.length === 42) {
             try {
                 const balance = await getBalance()
