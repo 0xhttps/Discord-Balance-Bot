@@ -25,7 +25,7 @@ client.on('ready', () => {
 client.on('messageCreate', async (message) => {
 
     const returnAddress = async () => {
-        var wallet = message.content
+        const wallet = message.content
         const displayWallet = "0x***" + wallet.slice(38,42)
         return displayWallet
     }
@@ -33,7 +33,7 @@ client.on('messageCreate', async (message) => {
     const getBalance = async () => {
         try {
             if(message.content.endsWith(keyWordENS) && !message.content.includes(" ")){
-                var ENS = message.content
+                const ENS = message.content
                 const wallet = await web3.eth.ens.getAddress(ENS)
                 const walletBalance = await web3.eth.getBalance(wallet)
                 const value = BigNumber.from(walletBalance)
@@ -41,7 +41,7 @@ client.on('messageCreate', async (message) => {
                 const displayBalance = displayBal.slice(0,7)
                 return displayBalance
             } else if(message.content.startsWith(keyWordAddress) && message.content.length === 42) {
-                var wallet = message.content
+                const wallet = message.content
                 const walletBalance = await web3.eth.getBalance(wallet)
                 const value = BigNumber.from(walletBalance)
                 const displayBal = ethers.utils.formatEther(value)
