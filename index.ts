@@ -25,15 +25,24 @@ client.on('messageCreate', async (message) => {
         return displayWallet
     }
 
-    const getBalanceENS = async () => {
+    const getBalance = async () => {
         try {
-            var ENS = message.content
-            const wallet = await web3.eth.ens.getAddress(ENS)
-            const walletBalance = await web3.eth.getBalance(wallet)
-            const value = BigNumber.from(walletBalance)
-            const displayBal = ethers.utils.formatEther(value)
-            const displayBalance = displayBal.slice(0,6)
-            return displayBalance
+            if(message.content.endsWith(".eth")){
+                var ENS = message.content
+                const wallet = await web3.eth.ens.getAddress(ENS)
+                const walletBalance = await web3.eth.getBalance(wallet)
+                const value = BigNumber.from(walletBalance)
+                const displayBal = ethers.utils.formatEther(value)
+                const displayBalance = displayBal.slice(0,7)
+                return displayBalance
+            } else if(message.content.startsWith("0x") && message.content.length === 42) {
+                var wallet = message.content
+                const walletBalance = await web3.eth.getBalance(wallet)
+                const value = BigNumber.from(walletBalance)
+                const displayBal = ethers.utils.formatEther(value)
+                const displayBalance = displayBal.slice(0,7)
+                return displayBalance
+            }
         }  catch (err){
             console.log(err)
         }
@@ -45,7 +54,7 @@ client.on('messageCreate', async (message) => {
             const walletBalance = await web3.eth.getBalance(wallet)
             const value = BigNumber.from(walletBalance)
             const displayBal = ethers.utils.formatEther(value)
-            const displayBalance = displayBal.slice(0,6)
+            const displayBalance = displayBal.slice(0,7)
             return displayBalance
         }  catch (err){
             console.log(err)
@@ -53,18 +62,12 @@ client.on('messageCreate', async (message) => {
     }
 
     try {
-        if(message.content.endsWith(".eth")) {
-            const balance = await getBalanceENS()
+        if(message.content.endsWith(".eth") || message.content.startsWith("0x") && message.content.length === 42) {
+            const balance = await getBalance()
             message.reply({
                 content: "Wallet balance of " + message.content + ": " + balance + " ETH"
             })
-        } else if(message.content.startsWith("0x") && message.content.length === 42) {
-            const balance = await getBalance0x()
-            const displayWallet = await returnAddress()
-            message.reply({
-                content: "Wallet balance of " + displayWallet + ": " + balance + " ETH"
-            })
-        }
+        } 
     } catch (err) {
         message.reply({
             content: "Please enter a valid address"
