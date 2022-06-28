@@ -1,7 +1,7 @@
 import DiscordJS, { Intents } from 'discord.js'
 import dotenv from 'dotenv'
-import Web3 from 'web3'
-import { BigNumber, ethers } from "ethers";
+import Web3 from 'web3' //pull wallet balance || convert ens to address
+import { BigNumber, ethers } from "ethers"; //convert wei to readable number automatically
 dotenv.config()
 
 //change link to your own API link
@@ -52,7 +52,7 @@ client.on('messageCreate', async (message) => {
             //console.log(err)
         }
     }
-
+        //bot only looks for below if statement
         if(message.content.endsWith(".eth") && !message.content.includes(" ")|| message.content.startsWith("0x") && message.content.length === 42) {
             try {
                 const balance = await getBalance()
